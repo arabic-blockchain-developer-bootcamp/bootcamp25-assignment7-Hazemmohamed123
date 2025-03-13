@@ -8,16 +8,25 @@ contract Assignment7Test is Test {
     Assignment7 assignment;
 
     function setUp() public {
-        // pass your token name and symbol here
-        assignment = new Assignment7();
+        // Pass your token name and symbol here during contract creation
+        assignment = new Assignment7("Test Token", "TST");
     }
 
     function testMintAndTransfer() public {
-        // Mint tokens to the test contract
+        // Mint 1000 tokens (with 18 decimals) to this test contract
         assignment.mint(address(this), 1000 * 10**18);
 
-        // Check balance of the test contract
+        // Check the balance of the test contract
         uint256 balance = assignment.balanceOf(address(this));
         assertEq(balance, 1000 * 10**18, "Balance should be 1000 tokens");
+
+        // Transfer tokens to another address and verify the balances
+        address recipient = address(0x123);
+        assignment.transfer(recipient, 500 * 10**18);
+        
+        // Check balances after transfer
+        assertEq(assignment.balanceOf(recipient), 500 * 10**18, "Recipient should have 500 tokens");
+        assertEq(assignment.balanceOf(address(this)), 500 * 10**18, "Test contract should have 500 tokens");
     }
 }
+
