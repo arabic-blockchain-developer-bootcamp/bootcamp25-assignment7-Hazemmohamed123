@@ -29,4 +29,3 @@ contract Assignment7Test is Test {
         assertEq(assignment.balanceOf(address(this)), 500 * 10**18, "Test contract should have 500 tokens");
     }
 }
-
